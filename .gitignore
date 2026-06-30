@@ -1,4 +1,4 @@
-config.json
-*.log
-.idea/
-.vscode/
+proxy.log
+.env
+__pycache__/
+*.pyc

@@ -1,75 +1,92 @@
-# CCX Dual-Provider Setup: DeepSeek + Doubao Vision
+# CCX 多上游配置：DeepSeek（深度思考）+ 豆包 Vision
 
-CCX 多上游配置：文本走 DeepSeek，图片自动走豆包 Vision。
+通过 CCX 实现 DeepSeek（文本 + 深度思考）和豆包 Vision（图片）双 Provider 自动分流。
 
-## 场景
+## 架构
 
-Codex 原生不支持用户自行上传图片进行识别。本配置通过 CCX 实现两个 Provider 按请求类型自动分流：
+```
+Codex → CCX(3688) → DeepSeek API    ← 纯文本，深度思考 ON，noVision=true
+                 → 豆包 ARK API    ← 含图片请求，自动 fallback
+```
 
-- 纯文本请求 → DeepSeek（优先）
-- 包含图片的请求 → 豆包 Seed Vision（DeepSeek 被 `noVision` 跳过，自动 fall）
+简洁三层，无需代理。
+
+## 快速开始
+
+### 1. 获取 API Key
+
+- DeepSeek：https://platform.deepseek.com/api_keys
+- 豆包 ARK：https://console.volcengine.com/ark
+
+### 2. 配置文件
+
+编辑 `config.example.json`，替换两处 API Key：
+
+```json
+"apiKeys": ["sk-your-deepseek-api-key"]   // → 你的 DeepSeek Key
+"apiKeys": ["ark-your-doubao-api-key"]    // → 你的豆包 Key
+```
+
+复制到 CCX 配置目录：
+
+```powershell
+copy config.example.json $env:APPDATA\ccx-desktop\.config\config.json
+```
+
+### 3. 重启 CCX
+
+CCX 托盘右键退出 → 重新打开，即可生效。
 
 ## 配置说明
 
-配置文件位置：`%APPDATA%\ccx-desktop\.config\config.json`
-
-### Provider 1: DeepSeek（文本）
+### DeepSeek 渠道（优先级 1）
 
 | 字段 | 值 | 说明 |
-|------|-----|------|
-| `noVision` | `true` | 跳过视觉请求，只处理纯文本 |
-| `priority` | `1` | 最高优先级，文本优先走此渠道 |
-| `normalizeNonstandardChatRoles` | `true` | 将 `developer` 角色转为 `system`（兼容 DeepSeek） |
+|---|---|---|
+| `baseUrl` | `https://api.deepseek.com` | 直连 DeepSeek API |
+| `reasoningMapping` | `{"gpt": "max"}` | 开启深度思考 |
+| `reasoningParamStyle` | `"reasoning"` | 推理参数格式 |
+| `noVision` | `true` | 跳过图片请求 |
+| `normalizeNonstandardChatRoles` | `true` | `developer` → `system` 角色映射 |
 | `codexNativeToolPassthrough` | `true` | 透传 Codex 原生工具调用 |
 
-### Provider 2: 豆包 ARK（Vision）
+### 豆包 ARK 渠道（优先级 2）
 
 | 字段 | 值 | 说明 |
-|------|-----|------|
-| `noVision` | `false` | 可处理图片请求 |
-| `priority` | `2` | 次级优先级，仅当 DeepSeek 无法处理时 fall |
-| `normalizeNonstandardChatRoles` | `true` | 将 `developer` 角色转为 `system`（兼容豆包） |
+|---|---|---|
+| `noVision` | `false` | 可处理图片 |
+| `normalizeNonstandardChatRoles` | `true` | `developer` → `system` 角色映射 |
 
 ### 路由逻辑
 
 ```
-请求到达 → 按 priority 顺序尝试每个 upstream
-  ├─ DeepSeek (priority 1): noVision=true → 图片请求跳过 → 文本请求处理
-  └─ 豆包 (priority 2):  noVision=false → 处理图片请求
+请求到达 → 按 priority 尝试
+  ├─ DeepSeek (prio 1): noVision=true → 图片请求跳过 → 文本走这里（含深度思考）
+  └─ 豆包 (prio 2):    noVision=false → 图片请求走这里
 ```
 
-每个请求独立路由，不会因为发过图片就"切换"到豆包。
+每个请求独立路由，不会因历史图片而「锁定」到豆包。
 
-## 使用步骤
+## 故障排查
 
-1. 将 `config.example.json` 中的 API Key 替换为你自己的：
-   - `sk-your-deepseek-api-key` → [DeepSeek API Key](https://platform.deepseek.com/api_keys)
-   - `ark-your-doubao-api-key` → [豆包 ARK API Key](https://console.volcengine.com/ark)
+### 1. 发送图片报 503
 
-2. 复制到 CCX 配置目录：
-   ```powershell
-   copy config.example.json $env:APPDATA\ccx-desktop\.config\config.json
-   ```
+**原因**：CCX 熔断器未清除（之前配置变更或上游异常触发）。
 
-3. 重启 CCX（退出 `ccx-desktop` 和 `ccx-go` 后重新打开）
+**修复**：重启 CCX 即可（托盘右键退出 → 重新打开）。
 
-4. 发一张图片测试，确认豆包 Vision 正常工作
+### 2. 对话过长后 token 超限
 
-## 踩坑记录
+**症状**：`This model's maximum context length is 1048565 tokens`
 
-- **推理模式报错**：DeepSeek 的 `reasoningParamStyle: "reasoning"` 会导致 `reasoning_content must be passed back` 错误。不要开启。
-- **角色映射**：豆包不支持 `developer` 角色，必须开 `normalizeNonstandardChatRoles`。
-- **修改后必须重启 CCX** 才能生效。
-- **API Key 轮换**：`apiKeys` 是数组，可配置多个 Key 实现故障切换。
+**修复**：该对话已不可恢复，开新对话。含图片任务建议每 10-15 轮开新对话。
 
-## 模型说明
+### 3. CCX key 不同步
 
-| 模型 | 用途 |
-|------|------|
-| `deepseek-v4-pro` | 日常对话、代码生成、复杂任务 |
-| `deepseek-v4-flash` | 快速响应、代码审查 |
-| `doubao-seed-2-0-mini-260428` | 图片识别/分析 |
+**症状**：`401 Unauthorized`
 
-## 许可
+**修复**：从 CCX 的 `.env` 复制 `PROXY_ACCESS_KEY`，更新 `~/.codex/auth.json` 的 `OPENAI_API_KEY`。
+
+## 许可证
 
 MIT

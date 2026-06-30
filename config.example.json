@@ -7,13 +7,17 @@
         "sk-your-deepseek-api-key"
       ],
       "serviceType": "openai",
-      "name": "deepseek-text",
+      "name": "deepseek-thinking",
       "website": "https://platform.deepseek.com/usage",
       "modelMapping": {
         "codex-auto-review": "deepseek-v4-flash",
         "gpt": "deepseek-v4-pro",
         "mini": "deepseek-v4-flash"
       },
+      "reasoningMapping": {
+        "gpt": "max"
+      },
+      "reasoningParamStyle": "reasoning",
       "normalizeNonstandardChatRoles": true,
       "codexNativeToolPassthrough": true,
       "priority": 1,

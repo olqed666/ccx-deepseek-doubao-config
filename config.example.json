@@ -1,47 +1,51 @@
 {
-  "upstream": [],
-  "responsesUpstream": [
-    {
-      "baseUrl": "https://api.deepseek.com",
-      "apiKeys": [
-        "sk-your-deepseek-api-key"
-      ],
-      "serviceType": "openai",
-      "name": "deepseek-thinking",
-      "website": "https://platform.deepseek.com/usage",
-      "modelMapping": {
-        "codex-auto-review": "deepseek-v4-flash",
-        "gpt": "deepseek-v4-pro",
-        "mini": "deepseek-v4-flash"
-      },
-      "reasoningMapping": {
-        "gpt": "max"
-      },
-      "reasoningParamStyle": "reasoning",
-      "normalizeNonstandardChatRoles": true,
-      "codexNativeToolPassthrough": true,
-      "priority": 1,
-      "status": "active",
-      "noVision": true
-    },
-    {
-      "baseUrl": "https://ark.cn-beijing.volces.com/api/v3",
-      "apiKeys": [
-        "ark-your-doubao-api-key"
-      ],
-      "serviceType": "openai",
-      "name": "doubao-vision",
-      "website": "https://console.volcengine.com/ark",
-      "modelMapping": {
-        "gpt": "doubao-seed-2-0-mini-260428",
-        "mini": "doubao-seed-2-0-mini-260428"
-      },
-      "normalizeNonstandardChatRoles": true,
-      "noVision": false,
-      "priority": 2,
-      "status": "active"
+    "upstream": [],
+    "responsesUpstream": [
+        {
+            "baseUrl": "https://api.deepseek.com",
+            "apiKeys": ["sk-your-deepseek-api-key"],
+            "apiKeyConfigs": [{"key": "sk-your-deepseek-api-key"}],
+            "serviceType": "openai",
+            "name": "desktop-deepseek-responses",
+            "website": "https://platform.deepseek.com/usage",
+            "modelMapping": {
+                "codex": "deepseek-v4-flash",
+                "gpt": "deepseek-v4-pro",
+                "mini": "deepseek-v4-flash"
+            },
+            "defaultCapability": {},
+            "reasoningMapping": {
+                "gpt": "max"
+            },
+            "reasoningParamStyle": "reasoning",
+            "normalizeNonstandardChatRoles": true,
+            "codexNativeToolPassthrough": true,
+            "priority": 1,
+            "status": "active",
+            "noVision": true
+        },
+        {
+            "baseUrl": "https://ark.cn-beijing.volces.com/api/v3",
+            "apiKeys": ["ark-your-doubao-api-key"],
+            "apiKeyConfigs": [{"key": "ark-your-doubao-api-key"}],
+            "serviceType": "openai",
+            "name": "doubao-vision",
+            "website": "https://console.volcengine.com/ark",
+            "modelMapping": {
+                "gpt": "doubao-seed-2-0-mini-260428",
+                "mini": "doubao-seed-2-0-mini-260428"
+            },
+            "normalizeNonstandardChatRoles": true,
+            "codexNativeToolPassthrough": true,
+            "noVision": false,
+            "priority": 2,
+            "status": "active"
+        }
+    ],
+    "geminiUpstream": [],
+    "contextRouting": {},
+    "fuzzyModeEnabled": true,
+    "thinkingCache": {
+        "ttlHours": 48
     }
-  ],
-  "geminiUpstream": [],
-  "fuzzyModeEnabled": true
 }

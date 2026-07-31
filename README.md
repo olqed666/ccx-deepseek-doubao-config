@@ -1,99 +1,93 @@
-# CCX ¶àÉÏÓÎÅäÖÃ£ºDeepSeek£¨Éî¶ÈË¼¿¼£©+ ¶¹°ü Vision
+# CCX å¤šä¸Šæ¸¸é…ç½®ï¼šDeepSeekï¼ˆæ·±åº¦æ€è€ƒï¼‰+ è±†åŒ… Vision
 
-»ùÓÚ CCX v2.9.37 channel preset£¬ÊµÏÖ DeepSeek£¨ÎÄ±¾ + Éî¶ÈË¼¿¼£©ºÍ¶¹°ü Vision£¨Í¼Æ¬£©Ë« Provider ×Ô¶¯·ÖÁ÷¡£
+åŸºäº CCX v2.9.37 channel presetï¼Œå®ç° DeepSeekï¼ˆæ–‡æœ¬ + æ·±åº¦æ€è€ƒï¼‰å’Œè±†åŒ… Visionï¼ˆå›¾ç‰‡ï¼‰åŒ Provider è‡ªåŠ¨åˆ†æµã€‚
 
-## ¼Ü¹¹
+## æ¶æ„
 
 ```
-Codex ¡ú CCX(3688) ¡ú DeepSeek API    ¡û ´¿ÎÄ±¾£¬Éî¶ÈË¼¿¼ ON£¬noVision=true
-                 ¡ú ¶¹°ü ARK API    ¡û º¬Í¼Æ¬ÇëÇó£¬×Ô¶¯ fallback
+Codex â†’ CCX(3688) â†’ DeepSeek API    â† çº¯æ–‡æœ¬ï¼Œæ·±åº¦æ€è€ƒ ONï¼ŒnoVision=true
+                 â†’ è±†åŒ… ARK API    â† å«å›¾ç‰‡è¯·æ±‚ï¼Œè‡ªåŠ¨ fallback
 ```
 
-¼ò½àÈı²ã£¬ÎŞĞè´úÀí¡£
+ç®€æ´ä¸‰å±‚ï¼Œæ— éœ€ä»£ç†ã€‚
 
-## Óë v2.9.37 preset ¶ÔÆëµÄ×Ö¶Î
+## ä¸ v2.9.37 preset å¯¹é½çš„å­—æ®µ
 
-Ïà±È¾É°æÅäÖÃ£¬ĞÂÔöÁË v2.9.37 preset ÖĞµÄÒÔÏÂ×Ö¶Î£º
+ç›¸æ¯”æ—§ç‰ˆé…ç½®ï¼Œæ–°å¢äº† v2.9.37 preset ä¸­çš„ä»¥ä¸‹å­—æ®µï¼š
 
-| ×Ö¶Î | Í¨µÀ | ËµÃ÷ |
+| å­—æ®µ | é€šé“ | è¯´æ˜ |
 |---|---|---|
-| `codexToolCompat` | Ë«Í¨µÀ | Codex Ô­Éú tool ¼æÈİÄ£Ê½£¨false = ²»×ö×ª»»£© |
-| `stripCodexClientTools` | Ë«Í¨µÀ | ²»°şÀë¿Í»§¶Ë tools |
-| `reasoningParamStyle` | DeepSeek | ÍÆÀí²ÎÊı¸ñÊ½ `"reasoning"` |
-| `reasoningMapping` | DeepSeek | `gpt ¡ú max` Éî¶ÈË¼¿¼ |
+| `codexToolCompat` | åŒé€šé“ | Codex åŸç”Ÿ tool å…¼å®¹æ¨¡å¼ï¼ˆfalse = ä¸åšè½¬æ¢ï¼‰ |
+| `stripCodexClientTools` | åŒé€šé“ | ä¸å‰¥ç¦»å®¢æˆ·ç«¯ tools |
+| `reasoningParamStyle` | DeepSeek | æ¨ç†å‚æ•°æ ¼å¼ `"reasoning"` |
+| `reasoningMapping` | DeepSeek | `gpt â†’ max` æ·±åº¦æ€è€ƒ |
 
-ËùÓĞ×Ö¶ÎÓë v2.9.37 ¹Ù·½ preset ±£³ÖÒ»ÖÂ¡£
+æ‰€æœ‰å­—æ®µä¸ v2.9.37 å®˜æ–¹ preset ä¿æŒä¸€è‡´ã€‚
 
-## ¿ìËÙ¿ªÊ¼
+## å¿«é€Ÿå¼€å§‹
 
-### 1. »ñÈ¡ API Key
+### 1. è·å– API Key
 
-- DeepSeek£ºhttps://platform.deepseek.com/api_keys
-- ¶¹°ü ARK£ºhttps://console.volcengine.com/ark
+- DeepSeekï¼šhttps://platform.deepseek.com/api_keys
+- è±†åŒ… ARKï¼šhttps://console.volcengine.com/ark
 
-### 2. ÅäÖÃÎÄ¼ş
+### 2. é…ç½®æ–‡ä»¶
 
-±à¼­ `config.example.json`£¬Ìæ»»Á½´¦ API Key£º
+ç¼–è¾‘ `config.example.json`ï¼Œæ›¿æ¢ä¸¤å¤„ API Keyï¼š
 
 ```json
-"apiKeys": ["sk-your-deepseek-api-key"]   // ¡ú ÄãµÄ DeepSeek Key
-"apiKeys": ["ark-your-doubao-api-key"]    // ¡ú ÄãµÄ¶¹°ü Key
+"apiKeys": ["sk-your-deepseek-api-key"]   // â†’ ä½ çš„ DeepSeek Key
+"apiKeys": ["ark-your-doubao-api-key"]    // â†’ ä½ çš„è±†åŒ… Key
 ```
 
-¸´ÖÆµ½ CCX ÅäÖÃÄ¿Â¼£º
+å¤åˆ¶åˆ° CCX é…ç½®ç›®å½•ï¼š
 
 ```powershell
 copy config.example.json $env:APPDATA\ccx-desktop\.config\config.json
 ```
 
-### 3. ÖØÆô CCX\n\n**ÖØÒªÌáĞÑ**£ºÊ¹ÓÃ±¾ÅäÖÃÊ±£¬ÇëÎñ±ØÔÚ Codex ÖĞÑ¡ÔñÄ£ĞÍ°æ±¾Îª **5.5**£¨²»ÒªÑ¡5.5 Sol°æ±¾£©£¬±ÜÃâ³öÏÖ¹¤¾ßĞ¹Â¶ÎÊÌâ¡£
+### 3. é‡å¯ CCX**é‡è¦æé†’**ï¼šä½¿ç”¨æœ¬é…ç½®æ—¶ï¼Œè¯·åŠ¡å¿…åœ¨ Codex ä¸­é€‰æ‹©æ¨¡å‹ç‰ˆæœ¬ä¸º **5.5**ï¼ˆä¸è¦é€‰5.6 Solç‰ˆæœ¬ï¼‰ï¼Œé¿å…å‡ºç°å·¥å…·æ³„éœ²é—®é¢˜ã€‚
 
-CCX ÍĞÅÌÓÒ¼üÍË³ö ¡ú ÖØĞÂ´ò¿ª£¬¼´¿ÉÉúĞ§¡£
+CCX æ‰˜ç›˜å³é”®é€€å‡º â†’ é‡æ–°æ‰“å¼€ï¼Œå³å¯ç”Ÿæ•ˆã€‚
 
-## ÅäÖÃËµÃ÷
+## é…ç½®è¯´æ˜
 
-### DeepSeek ÇşµÀ£¨ÓÅÏÈ¼¶ 1£©
+### DeepSeek æ¸ é“ï¼ˆä¼˜å…ˆçº§ 1ï¼‰
 
-| ×Ö¶Î | Öµ | ËµÃ÷ |
+| å­—æ®µ | å€¼ | è¯´æ˜ |
 |---|---|---|
-| `baseUrl` | `https://api.deepseek.com` | Ö±Á¬ DeepSeek API |
-| `modelMapping` | `gpt¡úv4-pro, mini¡úv4-flash` | Ä£ĞÍÓ³Éä |
-| `reasoningMapping` | `{"gpt": "max"}` | Éî¶ÈË¼¿¼ |
-| `reasoningParamStyle` | `"reasoning"` | ÍÆÀí²ÎÊı¸ñÊ½ |
-| `codexNativeToolPassthrough` | `true` | Í¸´« Codex Ô­Éú¹¤¾ß |
-| `codexToolCompat` | `false` | ²»×ö tool ¸ñÊ½×ª»» |
-| `normalizeNonstandardChatRoles` | `true` | `developer` ¡ú `system` |
-| `noVision` | `true` | Ìø¹ıÍ¼Æ¬ÇëÇó |
+| `baseUrl` | `https://api.deepseek.com` | ç›´è¿ DeepSeek API |
+| `modelMapping` | `gptâ†’v4-pro, miniâ†’v4-flash` | æ¨¡å‹æ˜ å°„ |
+| `reasoningMapping` | `{"gpt": "max"}` | æ·±åº¦æ€è€ƒ |
+| `reasoningParamStyle` | `"reasoning"` | æ¨ç†å‚æ•°æ ¼å¼ |
+| `codexNativeToolPassthrough` | `true` | é€ä¼  Codex åŸç”Ÿå·¥å…· |
+| `codexToolCompat` | `false` | ä¸åš tool æ ¼å¼è½¬æ¢ |
+| `normalizeNonstandardChatRoles` | `true` | `developer` â†’ `system` |
+| `noVision` | `true` | è·³è¿‡å›¾ç‰‡è¯·æ±‚ |
 
-### ¶¹°ü ARK ÇşµÀ£¨ÓÅÏÈ¼¶ 2£©
+### è±†åŒ… ARK æ¸ é“ï¼ˆä¼˜å…ˆçº§ 2ï¼‰
 
-| ×Ö¶Î | Öµ | ËµÃ÷ |
+| å­—æ®µ | å€¼ | è¯´æ˜ |
 |---|---|---|
-| `baseUrl` | `https://ark.cn-beijing.volces.com/api/v3` | »ğÉ½ÒıÇæ ARK |
-| `modelMapping` | `gpt¡úseed-2-0-mini` | ¶¹°üÄ£ĞÍ |
-| `codexNativeToolPassthrough` | `true` | Í¸´« Codex Ô­Éú¹¤¾ß |
-| `codexToolCompat` | `false` | ²»×ö tool ¸ñÊ½×ª»» |
-| `normalizeNonstandardChatRoles` | `true` | `developer` ¡ú `system` |
-| `noVision` | Î´ÉèÖÃ£¨Ä¬ÈÏ false£© | ¿É´¦ÀíÍ¼Æ¬ |
+| `baseUrl` | `https://ark.cn-beijing.volces.com/api/v3` | ç«å±±å¼•æ“ ARK |
+| `modelMapping` | `gptâ†’seed-2-0-mini` | è±†åŒ…æ¨¡å‹ |
+| `codexNativeToolPassthrough` | `true` | é€ä¼  Codex åŸç”Ÿå·¥å…· |
+| `codexToolCompat` | `false` | ä¸åš tool æ ¼å¼è½¬æ¢ |
+| `normalizeNonstandardChatRoles` | `true` | `developer` â†’ `system` |
+| `noVision` | æœªè®¾ç½®ï¼ˆé»˜è®¤ falseï¼‰ | å¯å¤„ç†å›¾ç‰‡ |
 
-### Â·ÓÉÂß¼­
+### è·¯ç”±é€»è¾‘
 
 ```
-ÇëÇóµ½´ï ¡ú °´ priority ³¢ÊÔ
-  ©À©¤ DeepSeek (prio 1): noVision=true ¡ú Í¼Æ¬ÇëÇóÌø¹ı ¡ú ÎÄ±¾×ßÕâÀï£¨º¬Éî¶ÈË¼¿¼£©
-  ©¸©¤ ¶¹°ü (prio 2):    Í¼Æ¬ÇëÇó×ßÕâÀï
+è¯·æ±‚åˆ°è¾¾ â†’ æŒ‰ priority å°è¯•
+  â”œâ”€ DeepSeek (prio 1): noVision=true â†’ å›¾ç‰‡è¯·æ±‚è·³è¿‡ â†’ æ–‡æœ¬èµ°è¿™é‡Œï¼ˆå«æ·±åº¦æ€è€ƒï¼‰
+  â””â”€ è±†åŒ… (prio 2):    å›¾ç‰‡è¯·æ±‚èµ°è¿™é‡Œ
 ```
 
-Ã¿¸öÇëÇó¶ÀÁ¢Â·ÓÉ£¬²»»áÒòÀúÊ·Í¼Æ¬¶ø¡¸Ëø¶¨¡¹µ½¶¹°ü¡£
+æ¯ä¸ªè¯·æ±‚ç‹¬ç«‹è·¯ç”±ï¼Œä¸ä¼šå› å†å²å›¾ç‰‡è€Œã€Œé”å®šã€åˆ°è±†åŒ…ã€‚
 
-## °æ±¾¼æÈİ
 
-| CCX °æ±¾ | ¼æÈİĞÔ |
-|---|---|
-| v2.9.37 | ? ÍêÈ«¶ÔÆë preset |
-| v3.0.0+ | ?? Ğè¹Ø×¢ `codexNativeToolPassthrough` ÊÇ·ñ±»ÒÆ³ı |
-
-## Ğí¿ÉÖ¤
+## è®¸å¯è¯
 
 MIT
 
